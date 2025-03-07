@@ -1,170 +1,162 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>International Women's Day 2025</title>
-    <link rel="stylesheet" href="styles.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;700&family=Playfair+Display:wght@400;700&display=swap" rel="stylesheet">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Celebrating International Women's Day - March 8">
+  <title>Happy International Women's Day!</title>
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&family=Dancing+Script:wght@600&display=swap" rel="stylesheet">
+  <!-- Added GSAP for advanced animations -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.11.4/gsap.min.js"></script>
 </head>
 <body>
-    <header>
-        <div class="container">
-            <nav>
-                <div class="logo">IWD 2025</div>
-                <ul class="nav-links">
-                    <li><a href="#about">About</a></li>
-                    <li><a href="#events">Events</a></li>
-                    <li><a href="#inspirations">Inspirations</a></li>
-                    <li><a href="#gallery">Gallery</a></li>
-                </ul>
-                <div class="hamburger">
-                    <span></span>
-                    <span></span>
-                    <span></span>
-                </div>
-            </nav>
-        </div>
-    </header>
+  <div class="confetti-container" id="confetti-container"></div>
+  <div class="sparkles-container" id="sparkles-container"></div>
+  <div class="butterfly-container">
+    <img src="https://i.imgur.com/TuiNPyG.png" class="butterfly" alt="">
+    <img src="https://i.imgur.com/TuiNPyG.png" class="butterfly" alt="">
+    <img src="https://i.imgur.com/TuiNPyG.png" class="butterfly" alt="">
+    <img src="https://i.imgur.com/TuiNPyG.png" class="butterfly" alt="">
+  </div>
+  
+  <header>
+    <h1>Happy International Women's Day!</h1>
+    <p class="tagline">Celebrating the incredible women in our lives on March 8th</p>
+    <div class="floating-hearts">
+      <i class="fas fa-heart heart"></i>
+      <i class="fas fa-heart heart"></i>
+      <i class="fas fa-heart heart"></i>
+    </div>
+  </header>
 
-    <section class="hero">
-        <div class="container">
-            <div class="hero-content">
-                <h1>International Women's Day</h1>
-                <h2>March 8, 2025</h2>
-                <p class="tagline">Celebrating women's achievements and advancing gender equality worldwide</p>
-                <button class="cta-button">Join the Celebration</button>
-            </div>
+  <main>
+    <!-- Gratitude Message Section -->
+    <section id="message" class="message-section">
+      <div class="container">
+        <h2>With Gratitude & Love</h2>
+        <p>To all the women who inspire, lead, nurture, and change the world every day - 
+          thank you for your strength, resilience, and boundless compassion.</p>
+        <div class="flower-decoration">
+          <div class="flower flower1"></div>
+          <div class="flower flower2"></div>
+          <div class="flower flower3"></div>
         </div>
+      </div>
     </section>
 
-    <section id="about" class="about">
-        <div class="container">
-            <h2 class="section-title">About International Women's Day</h2>
-            <div class="about-content">
-                <div class="about-text">
-                    <p>International Women's Day (March 8) is a global day celebrating the social, economic, cultural, and political achievements of women. The day also marks a call to action for accelerating women's equality.</p>
-                    <p>IWD has occurred for well over a century, with the first gathering in 1911 supported by over a million people. Today, it belongs to all groups collectively everywhere and continues to grow in strength each year.</p>
-                </div>
-                <div class="about-image">
-                    <img src="images/iwd-symbol.png" alt="International Women's Day Symbol">
-                </div>
-            </div>
+    <!-- Interactive Section -->
+    <section id="interactive" class="interactive-section">
+      <div class="container">
+        <h2>A Special Moment</h2>
+        <button id="surpriseButton" class="btn-surprise" aria-label="Click for a surprise message">
+          Click for a Surprise! <i class="fas fa-gift"></i>
+        </button>
+        
+        <div id="surpriseMessage" class="surprise-message hidden">
+          <div class="message-content">
+            <i class="fas fa-times close-btn" id="closeMessage"></i>
+            <h3>You are extraordinary!</h3>
+            <p>Your courage, wisdom, and compassion light up the world. Never forget how truly amazing you are!</p>
+            <p>Today and every day, we celebrate YOU!</p>
+          </div>
         </div>
+      </div>
     </section>
 
-    <section id="events" class="events">
-        <div class="container">
-            <h2 class="section-title">2025 Events & Activities</h2>
-            <div class="event-cards">
-                <div class="event-card">
-                    <div class="event-icon"><i class="fas fa-microphone"></i></div>
-                    <h3>Panel Discussions</h3>
-                    <p>Join thought leaders discussing gender equality progress and challenges</p>
-                </div>
-                <div class="event-card">
-                    <div class="event-icon"><i class="fas fa-paint-brush"></i></div>
-                    <h3>Art Exhibition</h3>
-                    <p>Featuring works from women artists around the world</p>
-                </div>
-                <div class="event-card">
-                    <div class="event-icon"><i class="fas fa-film"></i></div>
-                    <h3>Film Festival</h3>
-                    <p>Showcasing films directed by and focusing on women's stories</p>
-                </div>
-                <div class="event-card">
-                    <div class="event-icon"><i class="fas fa-hands-helping"></i></div>
-                    <h3>Community Service</h3>
-                    <p>Join volunteer efforts supporting women's organizations</p>
-                </div>
+    <!-- Image Gallery Section -->
+    <section id="gallery" class="gallery-section">
+      <div class="container">
+        <h2>Celebrating Women</h2>
+        <div class="gallery-container">
+          <button class="gallery-nav prev" aria-label="Previous image">
+            <i class="fas fa-chevron-left"></i>
+          </button>
+          
+          <div class="gallery-track">
+            <div class="gallery-slide">
+              <img src="https://source.unsplash.com/random/600x400/?women,celebration" alt="Women celebrating together" class="gallery-image">
             </div>
+            <div class="gallery-slide">
+              <img src="https://source.unsplash.com/random/600x400/?women,leadership" alt="Women in leadership" class="gallery-image">
+            </div>
+            <div class="gallery-slide">
+              <img src="https://source.unsplash.com/random/600x400/?women,empowerment" alt="Women empowerment" class="gallery-image">
+            </div>
+            <div class="gallery-slide">
+              <img src="https://source.unsplash.com/random/600x400/?women,inspiration" alt="Inspiring women" class="gallery-image">
+            </div>
+            <div class="gallery-slide">
+              <img src="https://source.unsplash.com/random/600x400/?women,achievement" alt="Women's achievements" class="gallery-image">
+            </div>
+          </div>
+          
+          <button class="gallery-nav next" aria-label="Next image">
+            <i class="fas fa-chevron-right"></i>
+          </button>
         </div>
+        
+        <div class="gallery-dots">
+          <!-- Dots will be generated by JavaScript -->
+        </div>
+      </div>
     </section>
 
-    <section id="inspirations" class="inspirations">
-        <div class="container">
-            <h2 class="section-title">Women Who Inspire</h2>
-            <div class="quotes-carousel">
-                <div class="quote active">
-                    <blockquote>"I am not free while any woman is unfree, even when her shackles are very different from my own."</blockquote>
-                    <cite>- Audre Lorde</cite>
-                </div>
-                <div class="quote">
-                    <blockquote>"There is no limit to what we, as women, can accomplish."</blockquote>
-                    <cite>- Michelle Obama</cite>
-                </div>
-                <div class="quote">
-                    <blockquote>"Feminism isn't about making women strong. Women are already strong. It's about changing the way the world perceives that strength."</blockquote>
-                    <cite>- G.D. Anderson</cite>
-                </div>
-                <div class="carousel-nav">
-                    <span class="dot active" data-index="0"></span>
-                    <span class="dot" data-index="1"></span>
-                    <span class="dot" data-index="2"></span>
-                </div>
-            </div>
+    <!-- Enhanced Inspirational Quotes with Typing Effect -->
+    <section id="quotes" class="quotes-section">
+      <div class="container">
+        <h2>Words of Wisdom</h2>
+        <div class="quote-card">
+          <blockquote>
+            <span class="typing-text" data-text="A woman is like a tea bag—you can't tell how strong she is until you put her in hot water."></span>
+            <cite>— Eleanor Roosevelt</cite>
+          </blockquote>
         </div>
+        <div class="quote-card">
+          <blockquote>
+            <span class="typing-text" data-text="There is no limit to what we, as women, can accomplish."></span>
+            <cite>— Michelle Obama</cite>
+          </blockquote>
+        </div>
+      </div>
     </section>
 
-    <section id="gallery" class="gallery">
-        <div class="container">
-            <h2 class="section-title">Celebrating Women Worldwide</h2>
-            <div class="gallery-grid">
-                <div class="gallery-item">
-                    <img src="images/gallery-1.jpg" alt="Women in Leadership">
-                </div>
-                <div class="gallery-item">
-                    <img src="images/gallery-2.jpg" alt="Women in Science">
-                </div>
-                <div class="gallery-item">
-                    <img src="images/gallery-3.jpg" alt="Women in Arts">
-                </div>
-                <div class="gallery-item">
-                    <img src="images/gallery-4.jpg" alt="Women in Sports">
-                </div>
-                <div class="gallery-item">
-                    <img src="images/gallery-5.jpg" alt="Women in Community">
-                </div>
-                <div class="gallery-item">
-                    <img src="images/gallery-6.jpg" alt="Women in Technology">
-                </div>
-            </div>
+    <!-- New Interactive Message Form -->
+    <section id="wishes" class="wishes-section">
+      <div class="container">
+        <h2>Share Your Wishes</h2>
+        <div class="wishes-form">
+          <textarea id="wishMessage" placeholder="Write your wishes or message for International Women's Day..." maxlength="200"></textarea>
+          <div class="wishes-form-bottom">
+            <span class="char-counter">0/200</span>
+            <button id="submitWish" class="btn-wish">Send Wishes <i class="fas fa-paper-plane"></i></button>
+          </div>
         </div>
+        <div id="wishesDisplay" class="wishes-display">
+          <!-- Wishes will be displayed here -->
+        </div>
+      </div>
     </section>
+  </main>
 
-    <footer>
-        <div class="container">
-            <div class="footer-content">
-                <div class="footer-logo">
-                    <h3>IWD 2025</h3>
-                    <p>Celebrating Women Worldwide</p>
-                </div>
-                <div class="footer-links">
-                    <h4>Quick Links</h4>
-                    <ul>
-                        <li><a href="#about">About IWD</a></li>
-                        <li><a href="#events">Events</a></li>
-                        <li><a href="#inspirations">Inspirations</a></li>
-                        <li><a href="#gallery">Gallery</a></li>
-                    </ul>
-                </div>
-                <div class="footer-social">
-                    <h4>Follow Us</h4>
-                    <div class="social-icons">
-                        <a href="#"><i class="fab fa-facebook"></i></a>
-                        <a href="#"><i class="fab fa-twitter"></i></a>
-                        <a href="#"><i class="fab fa-instagram"></i></a>
-                        <a href="#"><i class="fab fa-youtube"></i></a>
-                    </div>
-                </div>
-            </div>
-            <div class="footer-bottom">
-                <p>&copy; 2025 International Women's Day Celebration. All rights reserved.</p>
-            </div>
-        </div>
-    </footer>
+  <footer>
+    <div class="container">
+      <p>With love and gratitude on International Women's Day.</p>
+      <div class="social-share">
+        <p>Share this celebration:</p>
+        <button class="share-btn" data-platform="facebook"><i class="fab fa-facebook-f"></i></button>
+        <button class="share-btn" data-platform="twitter"><i class="fab fa-twitter"></i></button>
+        <button class="share-btn" data-platform="whatsapp"><i class="fab fa-whatsapp"></i></button>
+      </div>
+      <p class="copyright">Created with ❤️ for all the amazing women in our lives.</p>
+    </div>
+  </footer>
 
-    <script src="script.js"></script>
+  <div class="overlay" id="overlay"></div>
+  <div id="toast" class="toast"></div>
+  
+  <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.4.0/dist/confetti.browser.min.js"></script>
+  <script src="script.js"></script>
 </body>
 </html>
