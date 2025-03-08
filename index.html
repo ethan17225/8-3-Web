@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Celebrating International Women's Day - March 8">
+  <title>Happy International Women's Day!</title>
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&family=Dancing+Script:wght@600&display=swap" rel="stylesheet">
+  <!-- Added GSAP for advanced animations -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.11.4/gsap.min.js"></script>
+</head>
+<body>
+  <div class="confetti-container" id="confetti-container"></div>
+  <div class="sparkles-container" id="sparkles-container"></div>
+  
+  <header>
+    <h1>Happy International Women's Day!</h1>
+    <p class="tagline">Celebrating the incredible women in our lives on March 8th</p>
+    <div class="floating-hearts">
+      <i class="fas fa-heart heart"></i>
+      <i class="fas fa-heart heart"></i>
+      <i class="fas fa-heart heart"></i>
+    </div>
+  </header>
+
+  <main>
+    <!-- Gratitude Message Section -->
+    <section id="message" class="message-section">
+      <div class="container">
+        <h2>With Gratitude & Love</h2>
+        <p>To all the women who inspire, lead, nurture, and change the world every day - 
+          thank you for your strength, resilience, and boundless compassion.</p>
+        <div class="flower-decoration">
+          <div class="flower flower1"></div>
+          <div class="flower flower2"></div>
+          <div class="flower flower3"></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Interactive Section -->
+    <section id="interactive" class="interactive-section">
+      <div class="container">
+        <h2>A Special Moment</h2>
+        <button id="surpriseButton" class="btn-surprise" aria-label="Click for a surprise message">
+          Click for a Surprise! <i class="fas fa-gift"></i>
+        </button>
+        
+        <div id="surpriseMessage" class="surprise-message hidden">
+          <div class="message-content">
+            <i class="fas fa-times close-btn" id="closeMessage"></i>
+            <h3>You are extraordinary!</h3>
+            <p>Your courage, wisdom, and compassion light up the world. Never forget how truly amazing you are!</p>
+            <p>Today and every day, we celebrate YOU!</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Enhanced Inspirational Quotes with Typing Effect -->
+    <section id="quotes" class="quotes-section">
+      <div class="container">
+        <h2>Words of Wisdom</h2>
+        <div class="quote-card">
+          <blockquote>
+            <span class="typing-text" data-text="A woman is like a tea bag—you can't tell how strong she is until you put her in hot water."></span>
+            <cite>— Eleanor Roosevelt</cite>
+          </blockquote>
+        </div>
+        <div class="quote-card">
+          <blockquote>
+            <span class="typing-text" data-text="There is no limit to what we, as women, can accomplish."></span>
+            <cite>— Michelle Obama</cite>
+          </blockquote>
+        </div>
+        <div class="quote-card">
+          <blockquote>
+            <span class="typing-text" data-text="Women are the real architects of society. The strength of a woman is not measured by the impact that all her hardships in life have had on her, but by the extent of her refusal to be destroyed by them."></span>
+            <cite>— Harriet Beecher Stowe</cite>
+          </blockquote>
+        </div>
+      </div>
+    </section>
+
+    <!-- Inspiring Women Interactive Gallery -->
+    <section id="inspiring-women" class="inspiring-women-section">
+      <div class="container">
+        <h2>Inspiring Women in History</h2>
+        <p class="section-intro">Explore the stories of remarkable women who changed the world. Click on each card to learn more.</p>
+        
+        <div class="women-gallery">
+          <div class="woman-card" data-id="1">
+            <div class="card-front">
+              <img src="https://i.pinimg.com/736x/2e/56/09/2e560966e5492d636f9cba6202bbf070.jpg" alt="Marie Curie">
+              <h3>Marie Curie</h3>
+              <span class="card-hint">Click to learn more</span>
+            </div>
+            <div class="card-back">
+              <button class="close-card"><i class="fas fa-times"></i></button>
+              <h3>Marie Curie (1867-1934)</h3>
+              <p>Physicist and chemist who conducted pioneering research on radioactivity. She was the first woman to win a Nobel Prize, the first person to win Nobel Prizes in two different scientific fields, and the first woman to become a professor at the University of Paris.</p>
+              <div class="achievement-tags">
+                <span class="tag">Nobel Prize in Physics (1903)</span>
+                <span class="tag">Nobel Prize in Chemistry (1911)</span>
+              </div>
+              <blockquote>"Nothing in life is to be feared, it is only to be understood."</blockquote>
+            </div>
+          </div>
+          
+          <div class="woman-card" data-id="2">
+            <div class="card-front">
+              <img src="https://people.com/thmb/R1w56BJPcvgp_olWOuSdkaW-QX0=/900x0/filters:no_upscale():max_bytes(150000):strip_icc():gifv():focal(669x0:671x2)/rosa-parks-e4c1fdd4777743c982f16f93fd46ce00.jpg" alt="Rosa Parks">
+              <h3>Rosa Parks</h3>
+              <span class="card-hint">Click to learn more</span>
+            </div>
+            <div class="card-back">
+              <button class="close-card"><i class="fas fa-times"></i></button>
+              <h3>Rosa Parks (1913-2005)</h3>
+              <p>American activist in the civil rights movement best known for her pivotal role in the Montgomery bus boycott. Her refusal to give up her seat to a white passenger on a segregated bus became an important symbol of the movement against racial segregation.</p>
+              <div class="achievement-tags">
+                <span class="tag">Presidential Medal of Freedom</span>
+                <span class="tag">Congressional Gold Medal</span>
+              </div>
+              <blockquote>"I have learned over the years that when one's mind is made up, this diminishes fear."</blockquote>
+            </div>
+          </div>
+          
+          <div class="woman-card" data-id="3">
+            <div class="card-front">
+              <img src="https://static.printler.com/cache/5/1/6/1/c/6/5161c62ad1888e6acf3ad4907e95d21ba57ef96c.jpg" alt="Frida Kahlo">
+              <h3>Frida Kahlo</h3>
+              <span class="card-hint">Click to learn more</span>
+            </div>
+            <div class="card-back">
+              <button class="close-card"><i class="fas fa-times"></i></button>
+              <h3>Frida Kahlo (1907-1954)</h3>
+              <p>Mexican painter known for her many portraits, self-portraits, and works inspired by nature and artifacts of Mexico. Her art has been celebrated for its uncompromising depiction of the female form and experience, and its frank depiction of women's traditional roles.</p>
+              <div class="achievement-tags">
+                <span class="tag">First Mexican artist featured at the Louvre</span>
+                <span class="tag">Cultural icon</span>
+              </div>
+              <blockquote>"I paint self-portraits because I am so often alone, because I am the person I know best."</blockquote>
+            </div>
+          </div>
+          
+          <div class="woman-card" data-id="4">
+            <div class="card-front">
+              <img src="https://images.squarespace-cdn.com/content/v1/6217070d43c3f4116edf7a21/1660686360565-UCSFR41MD3K1VUSD41A8/Knowledge-Sharing-Malala-Yousafzai.jpeg" alt="Malala Yousafzai">
+              <h3>Malala Yousafzai</h3>
+              <span class="card-hint">Click to learn more</span>
+            </div>
+            <div class="card-back">
+              <button class="close-card"><i class="fas fa-times"></i></button>
+              <h3>Malala Yousafzai (1997-Present)</h3>
+              <p>Pakistani activist for female education and the youngest Nobel Prize laureate. She is known for human rights advocacy, especially the education of women and children in her native Pakistan, where the Taliban had at times banned girls from attending school.</p>
+              <div class="achievement-tags">
+                <span class="tag">Nobel Peace Prize (2014)</span>
+                <span class="tag">UN Messenger of Peace</span>
+              </div>
+              <blockquote>"One child, one teacher, one book, one pen can change the world."</blockquote>
+            </div>
+          </div>
+        </div>
+        
+        <button id="add-woman-btn" class="btn-add-woman">
+          <i class="fas fa-plus"></i> Nominate an Inspiring Woman
+        </button>
+      </div>
+    </section>
+
+    <!-- Make Your Pledge Section -->
+    <section id="pledge" class="pledge-section">
+      <div class="container">
+        <h2>Make Your Pledge for Gender Equality</h2>
+        <p class="section-intro">Choose actions you commit to take in support of gender equality and women's empowerment.</p>
+        
+        <div class="pledge-options">
+          <div class="pledge-card" data-pledge="mentor">
+            <div class="pledge-icon">
+              <i class="fas fa-hands-helping"></i>
+            </div>
+            <h3>Mentor a Woman</h3>
+            <p>Commit to mentoring or supporting a woman in your professional or personal network.</p>
+            <button class="btn-pledge-action">I Pledge</button>
+          </div>
+          
+          <div class="pledge-card" data-pledge="amplify">
+            <div class="pledge-icon">
+              <i class="fas fa-bullhorn"></i>
+            </div>
+            <h3>Amplify Women's Voices</h3>
+            <p>Actively listen to and amplify women's ideas and contributions in meetings and discussions.</p>
+            <button class="btn-pledge-action">I Pledge</button>
+          </div>
+          
+          <div class="pledge-card" data-pledge="educate">
+            <div class="pledge-icon">
+              <i class="fas fa-book-reader"></i>
+            </div>
+            <h3>Educate Yourself</h3>
+            <p>Learn about gender inequality issues by reading books, articles or watching documentaries by women authors.</p>
+            <button class="btn-pledge-action">I Pledge</button>
+          </div>
+          
+          <div class="pledge-card" data-pledge="support">
+            <div class="pledge-icon">
+              <i class="fas fa-store"></i>
+            </div>
+            <h3>Support Women-Owned Businesses</h3>
+            <p>Make a conscious effort to support and promote women-owned businesses and initiatives.</p>
+            <button class="btn-pledge-action">I Pledge</button>
+          </div>
+        </div>
+        
+        <div class="pledge-counter">
+          <div class="counter-container">
+            <span id="pledge-count">0</span>
+            <span class="counter-label">pledges made</span>
+          </div>
+          
+          <div id="my-pledges" class="my-pledges hidden">
+            <h3>My Pledges</h3>
+            <ul id="pledges-list">
+              <!-- Pledges will be added here -->
+            </ul>
+            <button id="share-pledges" class="share-pledges-btn">
+              <i class="fas fa-share-alt"></i> Share My Pledges
+            </button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- New Interactive Message Form -->
+    <section id="wishes" class="wishes-section">
+      <div class="container">
+        <h2>Share Your Wishes</h2>
+        <div class="wishes-form">
+          <textarea id="wishMessage" placeholder="Write your wishes or message for International Women's Day..." maxlength="200"></textarea>
+          <div class="wishes-form-bottom">
+            <span class="char-counter">0/200</span>
+            <button id="submitWish" class="btn-wish">Send Wishes <i class="fas fa-paper-plane"></i></button>
+          </div>
+        </div>
+        <div id="wishesDisplay" class="wishes-display">
+          <!-- Wishes will be displayed here -->
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="container">
+      <p>With love and gratitude on International Women's Day.</p>
+      <div class="social-share">
+        <p>Share this celebration:</p>
+        <button class="share-btn" data-platform="facebook"><i class="fab fa-facebook-f"></i></button>
+        <button class="share-btn" data-platform="twitter"><i class="fab fa-twitter"></i></button>
+        <button class="share-btn" data-platform="whatsapp"><i class="fab fa-whatsapp"></i></button>
+      </div>
+      <p class="copyright">Created with ❤️ for all the amazing women in our lives.</p>
+    </div>
+  </footer>
+
+  <div class="overlay" id="overlay"></div>
+  <div id="toast" class="toast"></div>
+  
+  <div class="section-indicator">
+    <div class="indicator-dot" data-section="message" title="Gratitude & Love"></div>
+    <div class="indicator-dot" data-section="interactive" title="Special Moment"></div>
+    <div class="indicator-dot" data-section="quotes" title="Words of Wisdom"></div>
+    <div class="indicator-dot" data-section="inspiring-women" title="Inspiring Women"></div>
+    <div class="indicator-dot" data-section="pledge" title="Make Your Pledge"></div>
+    <div class="indicator-dot" data-section="wishes" title="Share Wishes"></div>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.4.0/dist/confetti.browser.min.js"></script>
+  <script src="script.js"></script>
+</body>
+</html>
