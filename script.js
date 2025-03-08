@@ -884,9 +884,24 @@ function initTimelineSection() {
    * Update the timeline position based on current position
    */
   function updateTimelinePosition() {
-    const translateX = -currentPosition * 230; // 180px width + 50px margin
+    const isMobile = window.innerWidth < 768;
+    const eventWidth = isMobile ? 100 : 230; // Full width on mobile, 230px on desktop
+    
+    const translateX = -currentPosition * eventWidth;
     timelineTrack.style.transform = `translateX(${translateX}px)`;
     updateTimelineNavigation();
+    
+    // For mobile view, set all events except the current one to be semi-transparent
+    if (isMobile) {
+      const events = document.querySelectorAll('.timeline-event');
+      events.forEach((event, index) => {
+        if (index === currentPosition) {
+          event.style.opacity = 1;
+        } else {
+          event.style.opacity = 0;
+        }
+      });
+    }
   }
   
   /**
@@ -902,7 +917,7 @@ function initTimelineSection() {
    */
   function calculateEventsPerView() {
     const viewportWidth = window.innerWidth;
-    if (viewportWidth < 600) return 2;
+    if (viewportWidth < 768) return 1; // Show only one event on mobile
     if (viewportWidth < 900) return 3;
     return 4;
   }
