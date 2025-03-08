@@ -2348,3 +2348,355 @@ footer {
   70% { transform: scale(1.2); }
   100% { transform: scale(1); opacity: 1; }
 }
+
+/* Enhanced Mobile Responsiveness */
+@media (max-width: 768px) {
+  /* ...existing code... */
+  
+  /* General improvements */
+  section {
+    padding: 3rem 0;
+  }
+  
+  h2 {
+    font-size: 1.8rem;
+  }
+  
+  .section-intro {
+    font-size: 1rem;
+    margin-bottom: 2rem;
+  }
+  
+  /* Timeline improvements */
+  .timeline-event {
+    flex: 0 0 140px;
+    margin: 0 12px;
+  }
+  
+  .timeline-event::after {
+    right: -12px;
+  }
+  
+  .timeline-title {
+    font-size: 0.8rem;
+    max-width: 100%;
+  }
+  
+  /* Postcard improvements */
+  .postcard {
+    height: 320px;
+  }
+  
+  .postcard-controls {
+    padding: 1.5rem;
+  }
+  
+  /* Quiz improvements */
+  .quiz-container {
+    margin: 2rem auto 0;
+  }
+  
+  .answer-option {
+    padding: 0.8rem;
+    font-size: 1rem;
+  }
+  
+  /* Enhanced score circle */
+  .score-circle {
+    width: 120px;
+    height: 120px;
+  }
+  
+  .score-number {
+    font-size: 2.8rem;
+  }
+}
+
+@media (max-width: 480px) {
+  /* ...existing code... */
+  
+  /* General improvements */
+  section {
+    padding: 2rem 0;
+  }
+  
+  .container {
+    width: 95%;
+    padding: 1.5rem 0;
+  }
+  
+  h2 {
+    font-size: 1.6rem;
+    margin-bottom: 1rem;
+  }
+  
+  /* Enhanced mobile navigation */
+  .section-indicator {
+    display: none; /* Hide on small screens if it exists */
+  }
+  
+  /* Quiz improvements */
+  .quiz-intro {
+    padding: 1rem;
+  }
+  
+  .question-container h3 {
+    font-size: 1.2rem;
+    line-height: 1.4;
+  }
+  
+  .answer-option {
+    padding: 0.7rem;
+    font-size: 0.95rem;
+  }
+  
+  .question-feedback {
+    padding: 1rem;
+    margin-top: 1rem;
+  }
+  
+  .btn-quiz-next {
+    width: 100%;
+    justify-content: center;
+    padding: 0.7rem;
+  }
+  
+  /* Timeline improvements */
+  .timeline-navigation {
+    margin-bottom: 0.5rem;
+  }
+  
+  .timeline-detail-view {
+    padding: 1.5rem;
+  }
+  
+  .detail-content h3 {
+    font-size: 1.3rem;
+  }
+  
+  .detail-content p {
+    font-size: 0.95rem;
+  }
+  
+  /* Inspiring women cards */
+  .woman-card {
+    height: 300px;
+  }
+  
+  /* Card back adjustments */
+  .card-back {
+    padding: 15px;
+    overflow-y: auto;
+  }
+  
+  .card-back p {
+    font-size: 0.9rem;
+    margin-bottom: 10px;
+  }
+  
+  /* Result page improvements */
+  .score-circle {
+    width: 110px;
+    height: 110px;
+    margin: 1.2rem auto;
+  }
+  
+  .score-number {
+    font-size: 2.5rem;
+  }
+  
+  .score-text {
+    font-size: 0.9rem;
+  }
+  
+  .quiz-actions {
+    flex-direction: column;
+  }
+  
+  .btn-quiz-action {
+    width: 100%;
+    margin: 0.5rem 0;
+  }
+  
+  /* Postcard creator */
+  .control-group {
+    margin-bottom: 1rem;
+  }
+  
+  .control-group label {
+    margin-bottom: 0.3rem;
+    font-size: 0.95rem;
+  }
+  
+  .control-group input,
+  .control-group textarea {
+    padding: 10px;
+  }
+  
+  .postcard-actions {
+    gap: 8px;
+  }
+}
+
+/* Extra Small Devices */
+@media (max-width: 360px) {
+  header h1 {
+    font-size: 1.8rem;
+  }
+  
+  header .tagline {
+    font-size: 0.9rem;
+  }
+  
+  .timeline-event {
+    flex: 0 0 130px;
+    margin: 0 10px;
+  }
+  
+  .timeline-year {
+    font-size: 1rem;
+  }
+  
+  .timeline-title {
+    font-size: 0.75rem;
+  }
+  
+  .postcard-text h3 {
+    font-size: 2rem;
+  }
+  
+  .postcard-text p {
+    font-size: 0.95rem;
+  }
+  
+  .postcard-signature {
+    font-size: 1.3rem;
+  }
+  
+  /* Enhanced toast messages */
+  .toast {
+    max-width: 90%;
+    padding: 8px 15px;
+    font-size: 0.85rem;
+  }
+  
+  /* Tech section improvements */
+  .tech-pioneer-card .pioneer-image {
+    height: 180px;
+  }
+  
+  .pioneer-info h3 {
+    font-size: 1.2rem;
+  }
+  
+  .pioneer-title {
+    font-size: 0.9rem;
+  }
+  
+  .modal-pioneer-img {
+    width: 120px;
+    height: 120px;
+  }
+  
+  /* Fix button heights for touch */
+  button, 
+  .btn-wish, 
+  .btn-quiz-action,
+  .btn-pledge-action,
+  .btn-quiz-next,
+  .btn-postcard,
+  .btn-update-message {
+    min-height: 44px; /* Minimum touch target size */
+  }
+}
+
+/* Mobile Timeline Improvements */
+@media (max-width: 768px) {
+  /* ...existing code... */
+  
+  /* Timeline section redesign for mobile */
+  .timeline-navigation {
+    position: relative;
+    height: 40px;
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 0;
+  }
+  
+  .timeline-wrapper {
+    position: relative;
+    overflow: hidden;
+    padding: 2rem 0;
+    margin: 0 60px; /* Space for arrows */
+  }
+  
+  .timeline-event {
+    flex: 0 0 100%;
+    margin: 0;
+    text-align: center;
+  }
+  
+  .timeline-event::after {
+    display: none; /* Remove vertical divider for mobile */
+  }
+  
+  .timeline-arrow {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    margin: 0;
+    width: 50px;
+    height: 50px;
+    z-index: 10;
+  }
+  
+  .timeline-arrow.prev-arrow {
+    left: 0;
+  }
+  
+  .timeline-arrow.next-arrow {
+    right: 0;
+  }
+  
+  .timeline-year {
+    font-size: 1.4rem;
+  }
+  
+  .timeline-title {
+    font-size: 1rem;
+    margin-top: 0.5rem;
+    max-width: 100%;
+  }
+  
+  .timeline-point {
+    width: 24px;
+    height: 24px;
+    margin-bottom: 20px;
+  }
+}
+
+@media (max-width: 480px) {
+  /* ...existing code... */
+  
+  /* Enhanced mobile timeline */
+  .timeline-wrapper {
+    margin: 0 40px; /* Narrower spacing for smaller screens */
+  }
+  
+  .timeline-arrow {
+    width: 40px;
+    height: 40px;
+  }
+  
+  .timeline-detail-view {
+    margin-top: 1rem;
+  }
+
+  .timeline-point {
+    margin-bottom: 15px;
+  }
+  
+  .timeline-year {
+    font-size: 1.2rem;
+  }
+}
