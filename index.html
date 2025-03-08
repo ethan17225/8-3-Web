@@ -233,6 +233,228 @@
       </div>
     </section>
 
+    <!-- Interactive Timeline Section -->
+    <section id="timeline" class="timeline-section">
+      <div class="container">
+        <h2>Milestones in Women's History</h2>
+        <p class="section-intro">Explore key moments in the journey toward gender equality. Click on events to learn more.</p>
+        
+        <div class="timeline-container">
+          <div class="timeline-navigation">
+            <button class="timeline-arrow prev-arrow" aria-label="Previous events">
+              <i class="fas fa-chevron-left"></i>
+            </button>
+            <button class="timeline-arrow next-arrow" aria-label="Next events">
+              <i class="fas fa-chevron-right"></i>
+            </button>
+          </div>
+          
+          <div class="timeline-wrapper">
+            <div class="timeline-track">
+              <!-- Timeline events will be added here via JavaScript -->
+            </div>
+            <div class="timeline-line"></div>
+          </div>
+          
+          <div class="timeline-detail-view hidden">
+            <button class="close-detail"><i class="fas fa-times"></i></button>
+            <div class="detail-content">
+              <!-- Event details will be loaded here -->
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Women in Tech Section -->
+    <section id="women-in-tech" class="tech-section">
+      <div class="container">
+        <h2>Women in Tech</h2>
+        <p class="section-intro">Celebrating the groundbreaking contributions of women in technology and computing throughout history.</p>
+        
+        <div class="tech-grid">
+          <!-- Pioneer Cards -->
+          <div class="tech-pioneer-card" data-tech-id="lovelace">
+            <div class="pioneer-image">
+              <img src="https://upload.wikimedia.org/wikipedia/commons/0/0f/Ada_lovelace.jpg" alt="Ada Lovelace">
+            </div>
+            <div class="pioneer-info">
+              <h3>Ada Lovelace</h3>
+              <span class="years">1815-1852</span>
+              <p class="pioneer-title">First Computer Programmer</p>
+              <p class="pioneer-desc">Wrote the first algorithm intended for processing on a computer, the Analytical Engine.</p>
+              <button class="btn-learn-more">Learn More</button>
+            </div>
+          </div>
+          
+          <div class="tech-pioneer-card" data-tech-id="hopper">
+            <div class="pioneer-image">
+              <img src="https://upload.wikimedia.org/wikipedia/commons/a/ad/Commodore_Grace_M._Hopper%2C_USN_%28covered%29.jpg" alt="Grace Hopper">
+            </div>
+            <div class="pioneer-info">
+              <h3>Grace Hopper</h3>
+              <span class="years">1906-1992</span>
+              <p class="pioneer-title">Computer Scientist & Naval Officer</p>
+              <p class="pioneer-desc">Invented the first compiler and popularized the idea of machine-independent programming languages.</p>
+              <button class="btn-learn-more">Learn More</button>
+            </div>
+          </div>
+          
+          <div class="tech-pioneer-card" data-tech-id="johnson">
+            <div class="pioneer-image">
+              <img src="https://upload.wikimedia.org/wikipedia/commons/6/6d/Katherine_Johnson_1983.jpg" alt="Katherine Johnson">
+            </div>
+            <div class="pioneer-info">
+              <h3>Katherine Johnson</h3>
+              <span class="years">1918-2020</span>
+              <p class="pioneer-title">NASA Mathematician</p>
+              <p class="pioneer-desc">Her calculations were critical to the success of U.S. manned spaceflights.</p>
+              <button class="btn-learn-more">Learn More</button>
+            </div>
+          </div>
+          
+          <div class="tech-pioneer-card" data-tech-id="lamarr">
+            <div class="pioneer-image">
+              <img src="https://prod-images.tcm.com/Master-Profile-Images/HedyLamarr.jpg" alt="Hedy Lamarr">
+            </div>
+            <div class="pioneer-info">
+              <h3>Hedy Lamarr</h3>
+              <span class="years">1914-2000</span>
+              <p class="pioneer-title">Inventor & Actress</p>
+              <p class="pioneer-desc">Co-invented an early form of spread spectrum technology, the basis for modern WiFi, GPS, and Bluetooth.</p>
+              <button class="btn-learn-more">Learn More</button>
+            </div>
+          </div>
+        </div>
+        
+        <div class="tech-stats-container">
+          <h3>Women in Tech Today</h3>
+          <div class="stats-grid">
+            <div class="stat-card">
+              <div class="stat-number"><span id="stat-graduates">22</span>%</div>
+              <div class="stat-desc">of Computer Science bachelor's degrees earned by women in 2023</div>
+              <div class="stat-source">Source: NCWIT</div>
+            </div>
+            <div class="stat-card">
+              <div class="stat-number"><span id="stat-workforce">26</span>%</div>
+              <div class="stat-desc">of computing-related jobs held by women in 2023</div>
+              <div class="stat-source">Source: U.S. Bureau of Labor Statistics</div>
+            </div>
+            <div class="stat-card">
+              <div class="stat-number"><span id="stat-founders">17</span>%</div>
+              <div class="stat-desc">of tech startup founders are women in 2023</div>
+              <div class="stat-source">Source: Pitchbook</div>
+            </div>
+            <div class="stat-card">
+              <div class="stat-number"><span id="stat-leadership">25</span>%</div>
+              <div class="stat-desc">of leadership positions in tech occupied by women in 2023</div>
+              <div class="stat-source">Source: McKinsey & Company</div>
+            </div>
+          </div>
+        </div>
+        
+        <div class="tech-resources">
+          <h3>Resources for Women in Tech</h3>
+          <div class="resources-flex">
+            <div class="resource-card">
+              <div class="resource-icon"><i class="fas fa-laptop-code"></i></div>
+              <h4>Women Who Code</h4>
+              <p>Global network dedicated to helping women succeed in technology careers.</p>
+              <a href="https://www.womenwhocode.com/" target="_blank" class="resource-link">Visit Website</a>
+            </div>
+            <div class="resource-card">
+              <div class="resource-icon"><i class="fas fa-users"></i></div>
+              <h4>Girls Who Code</h4>
+              <p>Organization working to close the gender gap in technology.</p>
+              <a href="https://girlswhocode.com/" target="_blank" class="resource-link">Visit Website</a>
+            </div>
+            <div class="resource-card">
+              <div class="resource-icon"><i class="fas fa-chalkboard-teacher"></i></div>
+              <h4>Learn to Code</h4>
+              <p>Free resources specifically for women starting in tech.</p>
+              <a href="https://www.codecademy.com/" target="_blank" class="resource-link">Start Learning</a>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <!-- Tech pioneer modal -->
+      <div class="tech-modal hidden" id="techModal">
+        <div class="tech-modal-content">
+          <button class="close-modal-btn"><i class="fas fa-times"></i></button>
+          <div class="tech-modal-body">
+            <!-- Content will be dynamically inserted here -->
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Women's Achievements Quiz Section -->
+    <section id="quiz" class="quiz-section">
+      <div class="container">
+        <h2>Women's Achievements Quiz</h2>
+        <p class="section-intro">Test your knowledge about remarkable women and their contributions throughout history.</p>
+        
+        <div class="quiz-container">
+          <div class="quiz-intro" id="quizIntro">
+            <h3>How well do you know women's history?</h3>
+            <p>This quiz features 10 questions about groundbreaking women who changed the world. Challenge yourself and learn something new!</p>
+            <button id="startQuiz" class="btn-quiz-action">Start Quiz <i class="fas fa-play"></i></button>
+          </div>
+          
+          <div class="quiz-questions hidden" id="quizQuestions">
+            <div class="quiz-progress">
+              <div class="progress-bar">
+                <div class="progress-fill" id="quizProgress"></div>
+              </div>
+              <div class="progress-text">Question <span id="currentQuestion">1</span> of <span id="totalQuestions">10</span></div>
+            </div>
+            
+            <div class="question-container">
+              <h3 id="questionText">Question text will appear here</h3>
+              <div class="answers-container" id="answersContainer">
+                <!-- Answer options will be inserted here -->
+              </div>
+              <div class="question-feedback hidden" id="questionFeedback">
+                <div class="feedback-content">
+                  <p id="feedbackText">Feedback text will appear here</p>
+                  <button id="nextQuestion" class="btn-quiz-next">Next Question <i class="fas fa-arrow-right"></i></button>
+                </div>
+              </div>
+            </div>
+          </div>
+          
+          <div class="quiz-results hidden" id="quizResults">
+            <div class="results-header">
+              <h3>Quiz Completed!</h3>
+              <div class="score-circle">
+                <div class="score-number" id="finalScore">0</div>
+                <div class="score-text">out of 10</div>
+              </div>
+            </div>
+            
+            <div class="results-message" id="resultsMessage">
+              <!-- Results message will be inserted here -->
+            </div>
+            
+            <div class="quiz-actions">
+              <button id="retakeQuiz" class="btn-quiz-action">Take Quiz Again</button>
+              <button id="shareResults" class="btn-quiz-action">Share Results</button>
+            </div>
+            
+            <div class="further-reading">
+              <h4>Want to learn more?</h4>
+              <p>Check out these resources about remarkable women in history:</p>
+              <ul>
+                <li><a href="https://www.womenshistory.org/" target="_blank">National Women's History Museum</a></li>
+                <li><a href="https://www.unwomen.org/" target="_blank">UN Women</a></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
     <!-- New Interactive Message Form -->
     <section id="wishes" class="wishes-section">
       <div class="container">
@@ -249,34 +471,37 @@
         </div>
       </div>
     </section>
-  </main>
 
   <footer>
     <div class="container">
-      <p>With love and gratitude on International Women's Day.</p>
       <div class="social-share">
         <p>Share this celebration:</p>
         <button class="share-btn" data-platform="facebook"><i class="fab fa-facebook-f"></i></button>
         <button class="share-btn" data-platform="twitter"><i class="fab fa-twitter"></i></button>
         <button class="share-btn" data-platform="whatsapp"><i class="fab fa-whatsapp"></i></button>
       </div>
+      <p>With love and gratitude on International Women's Day.</p>
       <p class="copyright">Created with ❤️ for all the amazing women in our lives.</p>
     </div>
   </footer>
 
-  <div class="overlay" id="overlay"></div>
-  <div id="toast" class="toast"></div>
-  
   <div class="section-indicator">
     <div class="indicator-dot" data-section="message" title="Gratitude & Love"></div>
     <div class="indicator-dot" data-section="interactive" title="Special Moment"></div>
     <div class="indicator-dot" data-section="quotes" title="Words of Wisdom"></div>
     <div class="indicator-dot" data-section="inspiring-women" title="Inspiring Women"></div>
     <div class="indicator-dot" data-section="pledge" title="Make Your Pledge"></div>
+    <div class="indicator-dot" data-section="timeline" title="Milestones in Women's History"></div>
+    <div class="indicator-dot" data-section="women-in-tech" title="Women in Tech"></div>
+    <div class="indicator-dot" data-section="quiz" title="Women's Achievements Quiz"></div>
     <div class="indicator-dot" data-section="wishes" title="Share Wishes"></div>
   </div>
 
+  <div id="toast" class="toast"></div>
+  <div class="overlay" id="overlay"></div>
+
   <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.4.0/dist/confetti.browser.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
   <script src="script.js"></script>
 </body>
 </html>
