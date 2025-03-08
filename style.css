@@ -41,12 +41,13 @@ section {
 /* Header Styling */
 header {
   background: linear-gradient(to right, var(--primary), var(--secondary));
-  padding: 3rem 1rem;
+  padding: 6rem 1rem; /* Increased padding for more height */
   text-align: center;
   color: white;
   position: relative;
   overflow: hidden;
   box-shadow: 0 4px 15px var(--shadow);
+  min-height: 40vh; /* Added minimum height */
 }
 
 header h1 {
@@ -101,6 +102,8 @@ header .tagline {
 .message-section {
   text-align: center;
   position: relative;
+  padding: 6rem 0; /* Increased padding */
+  min-height: 50vh; /* Added minimum height */
 }
 
 .message-section h2 {
@@ -375,25 +378,16 @@ footer {
   pointer-events: none;
 }
 
-/* Enhanced Quote Cards with Typing Effect */
+/* Enhanced Quote Cards - Removed typing effect */
 .typing-text {
   display: inline-block;
-  overflow: hidden;
-  border-right: 0.15em solid var(--primary);
   white-space: pre-wrap;
-  width: 0;
-  max-width: 100%;
-  animation: 
-    typing 5s steps(1000, end) forwards,
-    blink 0.75s step-end infinite;
-  animation-play-state: paused;
-}
-
-.typing-text.typing {
-  animation-play-state: running;
   width: 100%;
+  /* Removed animations and border */
+  border-right: none;
 }
 
+/* Remove unused animations */
 @keyframes typing {
   from { width: 0; }
   to { width: 100%; }
@@ -499,6 +493,10 @@ footer {
 .wish-text {
   font-style: italic;
   margin-bottom: 10px;
+  word-wrap: break-word; /* Added word wrap */
+  overflow-wrap: break-word; /* Added overflow-wrap */
+  hyphens: auto; /* Added hyphens */
+  max-width: 100%; /* Ensure maximum width */
 }
 
 .wish-date {

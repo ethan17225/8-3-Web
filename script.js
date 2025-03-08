@@ -16,6 +16,7 @@ document.addEventListener('DOMContentLoaded', function() {
   initParallaxEffects();
   initWishesForm();
   initSocialSharing();
+  enhanceAccessibility();
 });
 
 /**
@@ -153,38 +154,39 @@ function initMouseSparkles() {
 }
 
 /**
- * Initialize typing effects for quotes
+ * Initialize quotes display (showing immediately without typing effect)
  */
 function initTypingEffects() {
   const typingTexts = document.querySelectorAll('.typing-text');
+  const quoteCards = document.querySelectorAll('.quote-card');
   
-  // Function to start typing animation when element is in view
-  const startTyping = (entries, observer) => {
+  // Function to show quotes when they enter the viewport
+  const showQuote = (entries, observer) => {
     entries.forEach(entry => {
       if (entry.isIntersecting) {
-        // Instead of adding the class immediately, add a slight delay between quotes
-        const index = Array.from(typingTexts).indexOf(entry.target);
-        setTimeout(() => {
-          entry.target.classList.add('typing');
-        }, index * 300); // Stagger animation start
+        // Make quote card visible immediately without typing animation
+        entry.target.classList.add('visible');
         observer.unobserve(entry.target);
       }
     });
   };
   
-  // Create intersection observer for typing effects
-  const typingObserver = new IntersectionObserver(startTyping, { 
-    threshold: 0.2,
-    rootMargin: '0px 0px -10% 0px' // Trigger slightly earlier
+  // Create intersection observer for quotes
+  const quoteObserver = new IntersectionObserver(showQuote, { 
+    threshold: 0.2
   });
   
-  // Get text from data-text attribute and observe each element
+  // Remove animation class and observe each quote card
   typingTexts.forEach(text => {
-    // Store text in data attribute but clear content
+    // Get text from data attribute and display it directly
     const content = text.getAttribute('data-text');
     text.textContent = content;
-    text.style.width = '0'; // Ensure text starts hidden
-    typingObserver.observe(text);
+    text.style.width = '100%'; // Ensure full width immediately
+  });
+  
+  // Observe quote cards for visibility animation only
+  quoteCards.forEach(card => {
+    quoteObserver.observe(card);
   });
 }
 
@@ -352,4 +354,32 @@ function triggerSmallConfetti() {
     origin: { y: 0.9 },
     colors: ['#ff6b95', '#ff9a8b', '#6a5acd']
   });
+}
+
+/**
+ * Enhance accessibility features
+ */
+function enhanceAccessibility() {
+  // Add keyboard navigation for interactive elements
+  const interactiveElements = document.querySelectorAll('.btn-surprise, .btn-wish, .share-btn');
+  
+  interactiveElements.forEach(el => {
+    el.setAttribute('tabindex', '0');
+    el.addEventListener('keydown', (e) => {
+      if (e.key === 'Enter' || e.key === ' ') {
+        e.preventDefault();
+        el.click();
+      }
+    });
+  });
+
+  // Add ARIA attributes to dynamic elements
+  document.querySelectorAll('.quote-card').forEach((card, index) => {
+    card.setAttribute('aria-label', `Quote ${index + 1}`);
+  });
+
+  // Add screen reader announcements for toast messages
+  const toastElement = document.getElementById('toast');
+  toastElement.setAttribute('role', 'status');
+  toastElement.setAttribute('aria-live', 'polite');
 }
