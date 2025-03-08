@@ -1,15 +1,9 @@
 // Global variables
-let currentSlide = 0;
-const slides = document.querySelectorAll('.gallery-slide');
-const totalSlides = slides.length;
 
 /**
  * Initialize the page when DOM is fully loaded
  */
 document.addEventListener('DOMContentLoaded', function() {
-  // Initialize gallery components
-  initializeGallery();
-  
   // Setup interactive elements
   setupInteractiveElements();
   
@@ -23,77 +17,6 @@ document.addEventListener('DOMContentLoaded', function() {
   initWishesForm();
   initSocialSharing();
 });
-
-/**
- * Set up the image gallery functionality
- */
-function initializeGallery() {
-  // Create dot indicators for each slide
-  const dotsContainer = document.querySelector('.gallery-dots');
-  
-  for (let i = 0; i < totalSlides; i++) {
-    const dot = document.createElement('div');
-    dot.classList.add('dot');
-    if (i === 0) dot.classList.add('active');
-    dot.addEventListener('click', () => {
-      goToSlide(i);
-    });
-    dotsContainer.appendChild(dot);
-  }
-  
-  // Set up navigation buttons
-  document.querySelector('.gallery-nav.prev').addEventListener('click', prevSlide);
-  document.querySelector('.gallery-nav.next').addEventListener('click', nextSlide);
-  
-  // Set initial position for slides
-  updateSlidePositions();
-}
-
-/**
- * Move to the previous slide
- */
-function prevSlide() {
-  currentSlide = (currentSlide - 1 + totalSlides) % totalSlides;
-  updateSlidePositions();
-  updateDots();
-}
-
-/**
- * Move to the next slide
- */
-function nextSlide() {
-  currentSlide = (currentSlide + 1) % totalSlides;
-  updateSlidePositions();
-  updateDots();
-}
-
-/**
- * Go to a specific slide by index
- */
-function goToSlide(index) {
-  currentSlide = index;
-  updateSlidePositions();
-  updateDots();
-}
-
-/**
- * Update all slides' positions in the gallery
- */
-function updateSlidePositions() {
-  slides.forEach((slide, index) => {
-    slide.style.transform = `translateX(${100 * (index - currentSlide)}%)`;
-  });
-}
-
-/**
- * Update active state of dot indicators
- */
-function updateDots() {
-  const dots = document.querySelectorAll('.dot');
-  dots.forEach((dot, index) => {
-    dot.classList.toggle('active', index === currentSlide);
-  });
-}
 
 /**
  * Set up all interactive elements on the page
@@ -185,11 +108,6 @@ function initScrollAnimations() {
   quoteCards.forEach(card => {
     observer.observe(card);
   });
-  
-  // Auto-advance gallery every 5 seconds
-  setInterval(() => {
-    nextSlide();
-  }, 5000);
 }
 
 /**
@@ -244,7 +162,11 @@ function initTypingEffects() {
   const startTyping = (entries, observer) => {
     entries.forEach(entry => {
       if (entry.isIntersecting) {
-        entry.target.classList.add('typing');
+        // Instead of adding the class immediately, add a slight delay between quotes
+        const index = Array.from(typingTexts).indexOf(entry.target);
+        setTimeout(() => {
+          entry.target.classList.add('typing');
+        }, index * 300); // Stagger animation start
         observer.unobserve(entry.target);
       }
     });
@@ -252,13 +174,16 @@ function initTypingEffects() {
   
   // Create intersection observer for typing effects
   const typingObserver = new IntersectionObserver(startTyping, { 
-    threshold: 0.5 
+    threshold: 0.2,
+    rootMargin: '0px 0px -10% 0px' // Trigger slightly earlier
   });
   
   // Get text from data-text attribute and observe each element
   typingTexts.forEach(text => {
+    // Store text in data attribute but clear content
     const content = text.getAttribute('data-text');
     text.textContent = content;
+    text.style.width = '0'; // Ensure text starts hidden
     typingObserver.observe(text);
   });
 }

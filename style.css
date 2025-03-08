@@ -278,116 +278,6 @@ header .tagline {
   visibility: visible;
 }
 
-/* Gallery Section */
-.gallery-section {
-  padding: 4rem 0;
-  background: linear-gradient(135deg, #f8f8ff 0%, #e6e6fa 100%);
-}
-
-.gallery-container {
-  position: relative;
-  display: flex;
-  align-items: center;
-  margin: 2rem 0;
-}
-
-.gallery-track {
-  display: flex;
-  overflow: hidden;
-  width: 100%;
-  height: 350px;
-  border-radius: 10px;
-}
-
-.gallery-slide {
-  flex: 0 0 100%;
-  transition: transform 0.5s ease;
-  height: 100%;
-  position: relative;
-  overflow: hidden;
-}
-
-.gallery-image {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  border-radius: 10px;
-  transition: transform 0.5s ease, filter 0.5s ease;
-}
-
-.gallery-slide:hover .gallery-image {
-  transform: scale(1.05);
-  filter: brightness(1.1);
-}
-
-.gallery-slide::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background: radial-gradient(circle, rgba(255,255,255,0) 60%, rgba(106,90,205,0.3) 100%);
-  opacity: 0;
-  transition: opacity 0.5s ease;
-  z-index: 5;
-  border-radius: 10px;
-  pointer-events: none;
-}
-
-.gallery-slide:hover::before {
-  opacity: 1;
-}
-
-.gallery-nav {
-  background: rgba(255, 255, 255, 0.8);
-  border: none;
-  border-radius: 50%;
-  width: 40px;
-  height: 40px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  cursor: pointer;
-  position: absolute;
-  z-index: 10;
-  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-  transition: transform 0.3s, background 0.3s;
-}
-
-.gallery-nav:hover {
-  background: white;
-  transform: scale(1.1);
-}
-
-.prev {
-  left: 10px;
-}
-
-.next {
-  right: 10px;
-}
-
-.gallery-dots {
-  display: flex;
-  justify-content: center;
-  margin-top: 1rem;
-}
-
-.dot {
-  width: 12px;
-  height: 12px;
-  background: #ccc;
-  border-radius: 50%;
-  margin: 0 5px;
-  cursor: pointer;
-  transition: background 0.3s;
-}
-
-.dot.active {
-  background: var(--primary);
-}
-
 /* Quotes Section */
 .quotes-section {
   text-align: center;
@@ -467,86 +357,6 @@ footer {
   to { transform: rotate(360deg); }
 }
 
-@keyframes flyAcross {
-  0% {
-    left: -10%;
-    top: 10%;
-  }
-  50% {
-    left: 110%;
-    top: 50%; 
-  }
-  51% {
-    left: -10%;
-    top: 60%;
-  }
-  100% {
-    left: 110%;
-    top: 30%;
-  }
-}
-
-@keyframes flutterWings {
-  0% { transform: scaleX(1); }
-  50% { transform: scaleX(0.8); }
-  100% { transform: scaleX(1); }
-}
-
-@keyframes typing {
-  from { width: 0; }
-  to { width: 100%; }
-}
-
-@keyframes blink {
-  50% { border-color: transparent; }
-}
-
-@keyframes toast-in-out {
-  0% { transform: translateY(100px); opacity: 0; }
-  15% { transform: translateY(0); opacity: 1; }
-  85% { transform: translateY(0); opacity: 1; }
-  100% { transform: translateY(100px); opacity: 0; }
-}
-
-/* Butterfly Animation */
-.butterfly-container {
-  position: fixed;
-  width: 100%;
-  height: 100%;
-  top: 0;
-  left: 0;
-  pointer-events: none;
-  z-index: 5;
-  overflow: hidden;
-}
-
-.butterfly {
-  position: absolute;
-  width: 40px;
-  height: 40px;
-  animation: flyAcross 30s linear infinite, flutterWings 0.2s ease-in-out infinite;
-}
-
-.butterfly:nth-child(1) { 
-  animation-delay: 0s; 
-  top: 15%; 
-}
-
-.butterfly:nth-child(2) { 
-  animation-delay: 7s; 
-  top: 40%; 
-}
-
-.butterfly:nth-child(3) { 
-  animation-delay: 14s; 
-  top: 60%; 
-}
-
-.butterfly:nth-child(4) { 
-  animation-delay: 21s; 
-  top: 80%; 
-}
-
 /* Sparkles Effect */
 .sparkles-container {
   position: fixed;
@@ -570,16 +380,27 @@ footer {
   display: inline-block;
   overflow: hidden;
   border-right: 0.15em solid var(--primary);
-  white-space: nowrap;
+  white-space: pre-wrap;
   width: 0;
+  max-width: 100%;
   animation: 
-    typing 3.5s steps(40, end) forwards,
+    typing 5s steps(1000, end) forwards,
     blink 0.75s step-end infinite;
   animation-play-state: paused;
 }
 
 .typing-text.typing {
   animation-play-state: running;
+  width: 100%;
+}
+
+@keyframes typing {
+  from { width: 0; }
+  to { width: 100%; }
+}
+
+@keyframes blink {
+  50% { border-color: transparent; }
 }
 
 /* Wishes Section */
@@ -750,10 +571,6 @@ footer {
     padding: 3rem 1rem;
   }
   
-  .gallery-track {
-    height: 250px;
-  }
-
   .wish-card {
     width: calc(50% - 15px);
   }
@@ -770,7 +587,6 @@ footer {
   
   .message-section h2, 
   .interactive-section h2,
-  .gallery-section h2,
   .quotes-section h2 {
     font-size: 1.8rem;
   }
@@ -778,10 +594,6 @@ footer {
   .btn-surprise {
     padding: 0.8rem 1.5rem;
     font-size: 1rem;
-  }
-  
-  .gallery-track {
-    height: 200px;
   }
   
   blockquote {
