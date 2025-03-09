@@ -4,6 +4,9 @@
  * Initialize the page when DOM is fully loaded
  */
 document.addEventListener('DOMContentLoaded', function() {
+  // Set up scroll position handling
+  handleScrollPosition();
+  
   // Setup interactive elements
   setupInteractiveElements();
   
@@ -26,6 +29,28 @@ document.addEventListener('DOMContentLoaded', function() {
   initPostcardCreator();
   initWomensAchievementsQuiz(); // Add new quiz initialization
 });
+
+/**
+ * Handle saving and restoring scroll position on page refresh
+ */
+function handleScrollPosition() {
+  // If the page is being loaded fresh (not refresh), scroll to top
+  if (!sessionStorage.getItem('wasRefreshed')) {
+    window.scrollTo(0, 0);
+    sessionStorage.setItem('wasRefreshed', 'true');
+  } else {
+    // Attempt to restore scroll position if this is a refresh
+    const scrollPos = sessionStorage.getItem('scrollPosition');
+    if (scrollPos) {
+      window.scrollTo(0, parseInt(scrollPos));
+    }
+  }
+
+  // Save scroll position before page is unloaded (refreshed or closed)
+  window.addEventListener('beforeunload', function() {
+    sessionStorage.setItem('scrollPosition', window.pageYOffset.toString());
+  });
+}
 
 /**
  * Set up all interactive elements on the page
@@ -313,12 +338,17 @@ function initWishesForm() {
    */
   function loadWishes() {
     fetch('/api/wishes')
-      .then(response => response.json())
+      .then(response => {
+        if (!response.ok) {
+          throw new Error('Server responded with status: ' + response.status);
+        }
+        return response.json();
+      })
       .then(wishes => {
         // Clear any placeholder wishes
         wishesDisplay.innerHTML = '';
         
-        if (wishes.length === 0) {
+        if (!wishes || wishes.length === 0) {
           // Add default wishes if none exist on the server
           addDefaultWishes();
         } else {
@@ -684,7 +714,12 @@ function loadSavedNominations() {
   
   // First try to load from server API
   fetch('/api/nominations')
-    .then(response => response.json())
+    .then(response => {
+      if (!response.ok) {
+        throw new Error('Server responded with status: ' + response.status);
+      }
+      return response.json();
+    })
     .then(nominations => {
       if (!nominations || nominations.length === 0) {
         throw new Error('No nominations found on server');
@@ -947,10 +982,9 @@ function initTimelineSection() {
   // Initial timeline position update
   updateTimelinePosition();
   
-  // Show 1848 event by default
+  // Select first event without showing details or scrolling
   if (timelineEvents.length > 0) {
-    showEventDetail(timelineEvents[0]);
-    // Mark the first timeline point as selected
+    // Just highlight the first event point without showing details or scrolling
     const firstEvent = document.querySelector('.timeline-event');
     if (firstEvent) {
       firstEvent.querySelector('.timeline-point').classList.add('selected');
@@ -1001,8 +1035,8 @@ function initTimelineSection() {
       detailView.classList.add('visible');
     }, 10);
     
-    // Smooth scroll to detail view
-    detailView.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+    // REMOVED: automatic scrolling to detail view
+    // detailView.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
   }
   
   /**
