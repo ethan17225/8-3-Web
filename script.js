@@ -4,6 +4,9 @@
  * Initialize the page when DOM is fully loaded
  */
 document.addEventListener('DOMContentLoaded', function() {
+  // Set up scroll position handling
+  handleScrollPosition();
+  
   // Setup interactive elements
   setupInteractiveElements();
   
@@ -26,6 +29,28 @@ document.addEventListener('DOMContentLoaded', function() {
   initPostcardCreator();
   initWomensAchievementsQuiz(); // Add new quiz initialization
 });
+
+/**
+ * Handle saving and restoring scroll position on page refresh
+ */
+function handleScrollPosition() {
+  // If the page is being loaded fresh (not refresh), scroll to top
+  if (!sessionStorage.getItem('wasRefreshed')) {
+    window.scrollTo(0, 0);
+    sessionStorage.setItem('wasRefreshed', 'true');
+  } else {
+    // Attempt to restore scroll position if this is a refresh
+    const scrollPos = sessionStorage.getItem('scrollPosition');
+    if (scrollPos) {
+      window.scrollTo(0, parseInt(scrollPos));
+    }
+  }
+
+  // Save scroll position before page is unloaded (refreshed or closed)
+  window.addEventListener('beforeunload', function() {
+    sessionStorage.setItem('scrollPosition', window.pageYOffset.toString());
+  });
+}
 
 /**
  * Set up all interactive elements on the page
@@ -247,36 +272,53 @@ function initWishesForm() {
   submitBtn.addEventListener('click', function() {
     const message = wishText.value.trim();
     if (message) {
-      addWish(message);
-      wishText.value = '';
-      charCounter.textContent = '0/200';
-      showToast('Your message has been shared! 🎉');
+      // Send wish to server
+      fetch('/api/wishes', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ message })
+      })
+      .then(response => response.json())
+      .then(data => {
+        addWish(message);
+        wishText.value = '';
+        charCounter.textContent = '0/200';
+        showToast('Your message has been shared! 🎉');
+      })
+      .catch(error => {
+        console.error('Error:', error);
+        showToast('Could not save your message. Please try again.');
+      });
     } else {
       showToast('Please write a message first');
     }
   });
   
-  // Add some sample wishes to start
-  setTimeout(() => {
-    addWish('Happy Women\'s Day to all the incredible women who inspire us daily!');
-    addWish('To my mom, sister, and all women in my life - thank you for your strength and love!');
-    addWish('Celebrating the achievements and resilience of women everywhere!');
-  }, 1000);
+  // Load wishes from server on page load
+  loadWishes();
   
   /**
    * Add a wish to the display
    */
-  function addWish(message) {
+  function addWish(message, date = new Date()) {
     const wishCard = document.createElement('div');
     wishCard.classList.add('wish-card');
     
-    const date = new Date();
-    const formattedDate = date.toLocaleDateString('en-US', { 
-      month: 'short',
-      day: 'numeric',
-      hour: '2-digit',
-      minute: '2-digit'
-    });
+    const formattedDate = typeof date === 'string' 
+      ? new Date(date).toLocaleDateString('en-US', { 
+          month: 'short', 
+          day: 'numeric', 
+          hour: '2-digit', 
+          minute: '2-digit' 
+        })
+      : date.toLocaleDateString('en-US', { 
+          month: 'short', 
+          day: 'numeric', 
+          hour: '2-digit', 
+          minute: '2-digit' 
+        });
     
     wishCard.innerHTML = `
       <p class="wish-text">${message}</p>
@@ -289,6 +331,52 @@ function initWishesForm() {
     setTimeout(() => {
       wishCard.classList.add('visible');
     }, 10);
+  }
+  
+  /**
+   * Load wishes from server
+   */
+  function loadWishes() {
+    fetch('/api/wishes')
+      .then(response => response.json())
+      .then(wishes => {
+        // Clear any placeholder wishes
+        wishesDisplay.innerHTML = '';
+        
+        if (wishes.length === 0) {
+          // Add default wishes if none exist on the server
+          addDefaultWishes();
+        } else {
+          // Display wishes in reverse chronological order
+          wishes.slice().reverse().forEach(wish => {
+            addWish(wish.message, wish.date);
+          });
+        }
+      })
+      .catch(error => {
+        console.error('Error loading wishes:', error);
+        
+        // Add default wishes when server request fails
+        addDefaultWishes();
+      });
+  }
+  
+  /**
+   * Add default wishes when server is unavailable or no wishes exist
+   */
+  function addDefaultWishes() {
+    addWish('Happy Women\'s Day to all the incredible women who inspire us daily!', formatDefaultDate(2));
+    addWish('To my mom, sister, and all women in my life - thank you for your strength and love!', formatDefaultDate(1));
+    addWish('Celebrating the achievements and resilience of women everywhere!', formatDefaultDate(0));
+  }
+  
+  /**
+   * Create staggered dates for default wishes
+   */
+  function formatDefaultDate(hoursAgo) {
+    const date = new Date();
+    date.setHours(date.getHours() - hoursAgo);
+    return date;
   }
 }
 
@@ -508,9 +596,15 @@ function showNominationForm() {
 /**
  * Add a new woman card to the gallery from nomination
  */
-function addNewWomanCard(name, achievement, imageUrl) {
-  // Generate unique ID for the card
-  const cardId = 'nominated-' + Date.now();
+function addNewWomanCard(name, achievement, imageUrl, id = null) {
+  // Generate unique ID for the card if not provided
+  const cardId = id || ('nominated-' + Date.now());
+  
+  // Check if this card already exists in the gallery
+  if (document.querySelector(`.woman-card[data-id="${cardId}"]`)) {
+    console.log(`Card with ID ${cardId} already exists, skipping`);
+    return; // Skip if the card already exists
+  }
   
   // Create the HTML for the new card
   const cardHTML = `
@@ -567,32 +661,83 @@ function addNewWomanCard(name, achievement, imageUrl) {
  * Save nomination to localStorage to persist between sessions
  */
 function saveNomination(id, name, achievement, imageUrl) {
-  // Get existing nominations or initialize empty array
-  const nominations = JSON.parse(localStorage.getItem('nominations')) || [];
-  
-  // Add new nomination
-  nominations.push({
-    id: id,
-    name: name,
-    achievement: achievement,
-    imageUrl: imageUrl,
-    date: new Date().toISOString()
+  // Send nomination to server
+  fetch('/api/nominations', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({
+      id, // Include ID to maintain consistency
+      name,
+      achievement,
+      imageUrl
+    })
+  })
+  .then(response => response.json())
+  .then(data => {
+    console.log('Nomination saved:', data);
+    // No need to store in localStorage if server save was successful
+  })
+  .catch(error => {
+    console.error('Error saving nomination:', error);
+    // Only fallback to localStorage if server request fails
+    const nominations = JSON.parse(localStorage.getItem('nominations')) || [];
+    nominations.push({
+      id: id,
+      name: name,
+      achievement: achievement,
+      imageUrl: imageUrl,
+      date: new Date().toISOString()
+    });
+    localStorage.setItem('nominations', JSON.stringify(nominations));
   });
-  
-  // Save back to localStorage
-  localStorage.setItem('nominations', JSON.stringify(nominations));
 }
 
 /**
  * Load existing nominations from localStorage on page load
  */
 function loadSavedNominations() {
-  const nominations = JSON.parse(localStorage.getItem('nominations')) || [];
+  // Track displayed nomination IDs to prevent duplicates
+  const displayedNominationIds = new Set();
   
-  // Create a card for each saved nomination
-  nominations.forEach(nomination => {
-    addNewWomanCard(nomination.name, nomination.achievement, nomination.imageUrl);
-  });
+  // Clear existing nomination cards from the community section
+  // Only targets community-added nominations, not the pre-defined ones
+  const womenGallery = document.querySelector('.women-gallery');
+  const communityNominations = womenGallery.querySelectorAll('.woman-card[data-id^="nominated-"]');
+  communityNominations.forEach(card => card.remove());
+  
+  // First try to load from server API
+  fetch('/api/nominations')
+    .then(response => response.json())
+    .then(nominations => {
+      if (!nominations || nominations.length === 0) {
+        throw new Error('No nominations found on server');
+      }
+      
+      nominations.forEach(nomination => {
+        // Pass the ID to maintain consistency and prevent duplicates
+        displayedNominationIds.add(nomination.id);
+        addNewWomanCard(nomination.name, nomination.achievement, nomination.imageUrl, nomination.id);
+      });
+      
+      // Clear localStorage after successful server load to avoid future duplicates
+      localStorage.removeItem('nominations');
+    })
+    .catch(error => {
+      console.error('Error loading nominations:', error);
+      
+      // Only fallback to localStorage if server request fails
+      const localNominations = JSON.parse(localStorage.getItem('nominations')) || [];
+      
+      localNominations.forEach(nomination => {
+        // Only add if not already displayed
+        if (!displayedNominationIds.has(nomination.id)) {
+          displayedNominationIds.add(nomination.id);
+          addNewWomanCard(nomination.name, nomination.achievement, nomination.imageUrl, nomination.id);
+        }
+      });
+    });
 }
 
 /**
@@ -605,26 +750,20 @@ function initPledgeSystem() {
   const pledgeCountElement = document.getElementById('pledge-count');
   const sharePledgesButton = document.getElementById('share-pledges');
   
-  // Initial pledge count from localStorage or default to random number for social proof
-  let totalPledges = localStorage.getItem('totalPledges') || Math.floor(Math.random() * 50) + 100;
-  pledgeCountElement.textContent = totalPledges;
+  // Store user pledges in session
+  let userPledges = [];
   
-  // Get user pledges from localStorage
-  const userPledges = JSON.parse(localStorage.getItem('userPledges')) || [];
-  
-  // If user has previous pledges, restore them
-  if (userPledges.length > 0) {
-    myPledgesSection.classList.remove('hidden');
-    
-    // Mark pledged cards and populate the list
-    userPledges.forEach(pledge => {
-      const pledgeCard = document.querySelector(`.pledge-card[data-pledge="${pledge.id}"]`);
-      if (pledgeCard) {
-        pledgeCard.classList.add('pledged');
-        addPledgeToList(pledge.text);
-      }
+  // Fetch total pledge count from server
+  fetch('/api/pledges')
+    .then(response => response.json())
+    .then(pledges => {
+      pledgeCountElement.textContent = pledges.length || 83; // Use 83 as default
+    })
+    .catch(error => {
+      console.error('Error fetching pledges:', error);
+      // Set default to 83 for International Women's Day (March 8th - 8/3)
+      pledgeCountElement.textContent = 83;
     });
-  }
   
   // Handle pledge button clicks
   pledgeButtons.forEach(button => {
@@ -632,43 +771,54 @@ function initPledgeSystem() {
     const pledgeId = pledgeCard.dataset.pledge;
     const pledgeText = pledgeCard.querySelector('h3').textContent;
     
-    // Check if already pledged
-    if (userPledges.some(p => p.id === pledgeId)) {
-      pledgeCard.classList.add('pledged');
-    }
-    
     button.addEventListener('click', function() {
       // Only allow if not already pledged
       if (!pledgeCard.classList.contains('pledged')) {
         // Add to pledged cards
         pledgeCard.classList.add('pledged');
         
-        // Increment counter
-        totalPledges++;
-        pledgeCountElement.textContent = totalPledges;
-        localStorage.setItem('totalPledges', totalPledges);
-        
-        // Add visual indication with counter animation
-        gsap.fromTo(pledgeCountElement, 
-          {scale: 1.2, color: 'var(--primary)'}, 
-          {scale: 1, color: 'var(--accent)', duration: 0.8}
-        );
-        
-        // Add to user pledges
-        userPledges.push({id: pledgeId, text: pledgeText});
-        localStorage.setItem('userPledges', JSON.stringify(userPledges));
-        
-        // Show pledges list if first pledge
-        if (userPledges.length === 1) {
-          myPledgesSection.classList.remove('hidden');
-        }
-        
-        // Add to list 
-        addPledgeToList(pledgeText);
-        
-        // Show confirmation
-        showToast('Thank you for your pledge!');
-        triggerSmallConfetti();
+        // Send pledge to server
+        fetch('/api/pledges', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({
+            pledgeId,
+            text: pledgeText
+          })
+        })
+        .then(response => response.json())
+        .then(data => {
+          // Update total pledges count
+          pledgeCountElement.textContent = data.totalPledges;
+          
+          // Store in session
+          userPledges.push({id: pledgeId, text: pledgeText});
+          
+          // Animate counter
+          gsap.fromTo(pledgeCountElement, 
+            {scale: 1.2, color: 'var(--primary)'}, 
+            {scale: 1, color: 'var(--accent)', duration: 0.8}
+          );
+          
+          // Show pledges list if first pledge
+          if (userPledges.length === 1) {
+            myPledgesSection.classList.remove('hidden');
+          }
+          
+          // Add to list 
+          addPledgeToList(pledgeText);
+          
+          // Show confirmation
+          showToast('Thank you for your pledge!');
+          triggerSmallConfetti();
+        })
+        .catch(error => {
+          console.error('Error saving pledge:', error);
+          pledgeCard.classList.remove('pledged');
+          showToast('Could not save your pledge. Please try again.');
+        });
       }
     });
   });
@@ -822,10 +972,9 @@ function initTimelineSection() {
   // Initial timeline position update
   updateTimelinePosition();
   
-  // Show 1848 event by default
+  // Select first event without showing details or scrolling
   if (timelineEvents.length > 0) {
-    showEventDetail(timelineEvents[0]);
-    // Mark the first timeline point as selected
+    // Just highlight the first event point without showing details or scrolling
     const firstEvent = document.querySelector('.timeline-event');
     if (firstEvent) {
       firstEvent.querySelector('.timeline-point').classList.add('selected');
@@ -876,8 +1025,8 @@ function initTimelineSection() {
       detailView.classList.add('visible');
     }, 10);
     
-    // Smooth scroll to detail view
-    detailView.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+    // REMOVED: automatic scrolling to detail view
+    // detailView.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
   }
   
   /**
@@ -1211,35 +1360,62 @@ function initPostcardCreator() {
    * Save card to localStorage
    */
   function saveCardToLocalStorage(cardData) {
-    // Get existing cards from localStorage or initialize empty array
-    const savedCards = JSON.parse(localStorage.getItem('postcards')) || [];
-    
-    // Add new card with timestamp
-    savedCards.push({
-      ...cardData,
-      timestamp: new Date().toISOString()
+    // Send postcard to server
+    fetch('/api/postcards', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(cardData)
+    })
+    .then(response => response.json())
+    .then(data => {
+      console.log('Postcard saved:', data);
+    })
+    .catch(error => {
+      console.error('Error saving postcard:', error);
+      // Fallback to localStorage if server request fails
+      const savedCards = JSON.parse(localStorage.getItem('postcards')) || [];
+      savedCards.push({
+        ...cardData,
+        timestamp: new Date().toISOString()
+      });
+      localStorage.setItem('postcards', JSON.stringify(savedCards.slice(-50)));
     });
-    
-    // Store back to localStorage (limit to 50 cards to prevent storage issues)
-    localStorage.setItem('postcards', JSON.stringify(savedCards.slice(-50)));
   }
   
   /**
    * Load saved cards from localStorage
    */
   function loadSavedCards() {
-    const savedCards = JSON.parse(localStorage.getItem('postcards')) || [];
-    
-    // Show up to 12 most recent cards in the gallery
-    savedCards.slice(-12).reverse().forEach(cardData => {
-      addCardToGallery(cardData);
-    });
-    
-    // Show message if no cards
-    const communityCards = document.getElementById('communityCards');
-    if (communityCards && savedCards.length === 0) {
-      communityCards.innerHTML = '<p class="no-cards-message">No cards shared yet. Be the first to share!</p>';
-    }
+    fetch('/api/postcards')
+      .then(response => response.json())
+      .then(cards => {
+        // Show up to 12 most recent cards in the gallery
+        cards.slice(-12).reverse().forEach(cardData => {
+          addCardToGallery(cardData);
+        });
+        
+        // Show message if no cards
+        const communityCards = document.getElementById('communityCards');
+        if (communityCards && cards.length === 0) {
+          communityCards.innerHTML = '<p class="no-cards-message">No cards shared yet. Be the first to share!</p>';
+        }
+      })
+      .catch(error => {
+        console.error('Error loading postcards:', error);
+        // Fallback to localStorage if server request fails
+        const savedCards = JSON.parse(localStorage.getItem('postcards')) || [];
+        
+        savedCards.slice(-12).reverse().forEach(cardData => {
+          addCardToGallery(cardData);
+        });
+        
+        const communityCards = document.getElementById('communityCards');
+        if (communityCards && savedCards.length === 0) {
+          communityCards.innerHTML = '<p class="no-cards-message">No cards shared yet. Be the first to share!</p>';
+        }
+      });
   }
   
   // Force update message one more time after a short delay
